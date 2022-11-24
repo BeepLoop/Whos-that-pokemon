@@ -8,7 +8,7 @@ import Gameover from "./components/Gameover";
 
 const MAX_NUM_OF_POKEMONS = 897;
 const NUMBER_OF_ANSWERS = 4;
-const DELAY = 1000;
+const DELAY = 1500;
 
 function App() {
   const [pokemonToGuess, setPokemonToGuess] = useState([]);
@@ -22,10 +22,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    starRound();
+    startRound();
   }, [rounds]);
 
-  async function starRound() {
+  async function startRound() {
     setIsLoading(true);
     setReveal(false);
     await fetchPokemonToGuess();
@@ -78,6 +78,7 @@ function App() {
     if (correctPokemon.id === id) {
       setAnswerStatus(true);
 
+      playSound();
       confetti({
         particleCount: 50,
         origin: {
@@ -103,6 +104,11 @@ function App() {
     setRounds((current) => (current = 0));
     setIsPlaying(false);
     setGameover(false);
+  }
+
+  function playSound() {
+    let ding = new Audio('./src/correct.mp3')
+    ding.play();
   }
 
   return (
