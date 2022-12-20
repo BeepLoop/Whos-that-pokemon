@@ -23,6 +23,7 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 
 * Improve code logic
 * Update UI
+* Add high score system
 
 ## How to run
 
