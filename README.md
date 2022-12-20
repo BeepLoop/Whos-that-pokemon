@@ -17,6 +17,11 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 
 * ConfettiJS for confetti effects
 
+## To do
+
+* Improve code logic
+* Update UI
+
 ## How to run
 
 clone the github repo
