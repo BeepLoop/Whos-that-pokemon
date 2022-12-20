@@ -4,6 +4,8 @@
 
 Pokemon guessing game using ReactJS with Vite, and the [Pokemon API](https://pokeapi.co/)
 
+## Live demo
+
 For live demo of the app, you can visit the deployed version [here](https://pokemon-malaki.netlify.app/)
 
 ## How it works
