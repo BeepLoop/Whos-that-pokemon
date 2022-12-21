@@ -11,7 +11,7 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 ## How it works
 
 1. The react app fetches four random pokemon from the pokemon API
-2. From the four fetched pokemon, picks 1 random pokemon as the correct answer
+2. From the four fetched pokemon, picks 1 random pokemon to guess
 3. Displays the silhouette of the pokemon to guess and the list of choices
 4. Increase score for every correct guesses, end game if guess is incorrect
 
@@ -25,7 +25,7 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 * Update UI
 * Add high score system
 
-## How to run
+## How to run 
 
 clone the github repo
 ```
