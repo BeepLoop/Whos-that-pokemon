@@ -27,6 +27,9 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 
 ## How to run 
 
+### Requirements
+requires NodeJS. You can install NodeJS from [here](https://nodejs.org/en/)
+
 clone the github repo
 ```
 git clone https://github.com/Mulitt/Whos-that-pokemon.git
