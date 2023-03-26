@@ -10,7 +10,7 @@ import sfx from '../src/correct.mp3';
 
 const MAX_NUM_OF_POKEMONS = 897;
 const NUMBER_OF_ANSWERS = 4;
-const DELAY = 1500;
+const DELAY = 1000;
 
 function App() {
     const [pokemonToGuess, setPokemonToGuess] = useState([]);
@@ -18,7 +18,6 @@ function App() {
     const [rounds, setRounds] = useState(0);
     const [score, setScore] = useState(0);
     const [reveal, setReveal] = useState(false);
-    const [answerStatus, setAnswerStatus] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [gameover, setGameover] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -79,8 +78,6 @@ function App() {
         setReveal(true);
 
         if (correctPokemon.id === id) {
-            setAnswerStatus(true);
-
             playSFX()
             confetti({
                 particleCount: 50,
