@@ -25,7 +25,11 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 * Update UI
 * Add high score system
 
-## How to run 
+## Recently accomplished
+[x] add sound effects
+[x] update UI to tailwindcss
+
+## How to run
 
 ### Requirements
 requires NodeJS. You can install NodeJS from [here](https://nodejs.org/en/)
