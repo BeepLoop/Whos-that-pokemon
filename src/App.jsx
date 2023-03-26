@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Pokemon from "./components/Pokemon";
 import Answers from "./components/Answers";
-import "./App.css";
+// import "./App.css";
 import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Gameover from "./components/Gameover";
@@ -20,7 +20,7 @@ function App() {
     const [reveal, setReveal] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [gameover, setGameover] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [playSFX] = useSound(sfx)
 
     useEffect(() => {
@@ -58,14 +58,12 @@ function App() {
         function pickRandomFromPokemonToGuess() {
             const index = Math.floor(Math.random() * NUMBER_OF_ANSWERS);
             setCorrectPokemon(selectedPokemons[index]);
-            console.log("pick correct pokemon");
         }
 
         async function fetchRandomPokemon() {
             const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1);
 
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${random}`);
-            console.log("fetch pokemon");
             return await res.json();
         }
     }
@@ -88,7 +86,6 @@ function App() {
                 scalar: 2,
             });
             setTimeout(() => {
-                console.log("correct");
                 setScore((current) => (current = current + 1));
                 setRounds((current) => (current = current + 1));
             }, DELAY);
@@ -107,7 +104,7 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className="bg-yellow-200 max-w-xl mx-auto h-screen">
             {isPlaying ? (
                 isLoading ? (
                     <Loading />
@@ -115,10 +112,10 @@ function App() {
                     <Gameover score={score} retry={tryAgain} />
                 ) : (
                     <>
-                        <div className="score-board">
-                            <h3>Score: {score}</h3>
+                        <div className="bg-red-400">
+                            <h3 className="text-center text-xl">Score: {score}</h3>
                         </div>
-                        <div className="pokemon-tab">
+                        <div className="">
                             <Pokemon pokemon={correctPokemon} reveal={reveal} />
                         </div>
                         <Answers
