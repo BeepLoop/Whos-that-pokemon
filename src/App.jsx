@@ -6,7 +6,8 @@ import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Gameover from "./components/Gameover";
 import useSound from "use-sound";
-import sfx from './assets/audio/correct.mp3'
+import correctSFX from './assets/audio/correct.mp3'
+import wrongSFX from './assets/audio/wrong.mp3'
 
 const MAX_NUM_OF_POKEMONS = 897;
 const NUMBER_OF_ANSWERS = 4;
@@ -21,7 +22,8 @@ function App() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [gameover, setGameover] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [playSFX] = useSound(sfx)
+    const [playCorrectSFX] = useSound(correctSFX)
+    const [playWrongSFX] = useSound(wrongSFX, { volume: 0.3 })
 
     useEffect(() => {
         startRound();
@@ -77,7 +79,7 @@ function App() {
 
         if (correctPokemon.id === id) {
             setScore((current) => (current = current + 1));
-            playSFX()
+            playCorrectSFX()
             confetti({
                 particleCount: 50,
                 origin: {
@@ -90,6 +92,7 @@ function App() {
                 setRounds((current) => (current = current + 1));
             }, DELAY);
         } else {
+            playWrongSFX()
             setTimeout(() => {
                 setGameover(true);
             }, DELAY);
@@ -97,7 +100,7 @@ function App() {
     }
 
     function tryAgain() {
-        setScore(0);
+        setScore(curr => curr *= 0);
         setRounds(0);
         setIsPlaying(false);
         setGameover(false);
