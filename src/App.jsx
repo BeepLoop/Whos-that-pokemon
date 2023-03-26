@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Pokemon from "./components/Pokemon";
 import Answers from "./components/Answers";
-// import "./App.css";
 import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Gameover from "./components/Gameover";
