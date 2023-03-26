@@ -103,9 +103,8 @@ function App() {
     }
 
     function tryAgain() {
-        setScore((current) => (current = 0));
-        setScore((current) => (current = 0));
-        setRounds((current) => (current = 0));
+        setScore(0);
+        setRounds(0);
         setIsPlaying(false);
         setGameover(false);
     }
