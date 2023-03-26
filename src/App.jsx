@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Pokemon from "./components/Pokemon";
 import Answers from "./components/Answers";
-// import "./App.css";
 import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Gameover from "./components/Gameover";
@@ -24,6 +23,8 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [playCorrectSFX] = useSound(correctSFX)
     const [playWrongSFX] = useSound(wrongSFX, { volume: 0.3 })
+
+    const {VITE_POKE_API} = import.meta.env
 
     useEffect(() => {
         startRound();
@@ -65,7 +66,7 @@ function App() {
         async function fetchRandomPokemon() {
             const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1);
 
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${random}`);
+            const res = await fetch(`${VITE_POKE_API}${random}`);
             return await res.json();
         }
     }
