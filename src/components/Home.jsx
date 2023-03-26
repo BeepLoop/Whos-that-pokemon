@@ -11,7 +11,7 @@ function Home({ sprite, setIsPlaying }) {
                 <img className="w-48 aspect-square red-500 outline outline-1 rounded-md brightness-0" src={sprite} />
             </div>
             <div className="flex justify-center my-6">
-                <button className="bg-red-400 px-3 py-2 rounded-md h-16 w-32 shadow-lg shadow-gray-500/40" onClick={() => setIsPlaying()}>
+                <button className="bg-red-400 hover:contrast-75 px-3 py-2 rounded-md h-16 w-32 shadow-lg shadow-gray-500/40" onClick={() => setIsPlaying()}>
                     Play
                 </button>
             </div>

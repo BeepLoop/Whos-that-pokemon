@@ -14,7 +14,7 @@ function Gameover({ score, retry }) {
           <p className="text-lg">You picked the wrong pokemon.</p>
         </div>
         <div className="my-4">
-          <button className="bg-red-400 px-3 py-2 rounded-md shadow-lg shadow-black/20" onClick={() => retry()}>
+          <button className="bg-red-400 hover:contrast-75 px-3 py-2 rounded-md shadow-lg shadow-black/20" onClick={() => retry()}>
             Try Again
           </button>
         </div>

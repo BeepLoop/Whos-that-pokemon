@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Gameover from "./components/Gameover";
 import useSound from "use-sound";
-import sfx from '../src/correct.mp3';
+import sfx from './assets/audio/correct.mp3'
 
 const MAX_NUM_OF_POKEMONS = 897;
 const NUMBER_OF_ANSWERS = 4;
@@ -76,6 +76,7 @@ function App() {
         setReveal(true);
 
         if (correctPokemon.id === id) {
+            setScore((current) => (current = current + 1));
             playSFX()
             confetti({
                 particleCount: 50,
@@ -86,7 +87,6 @@ function App() {
                 scalar: 2,
             });
             setTimeout(() => {
-                setScore((current) => (current = current + 1));
                 setRounds((current) => (current = current + 1));
             }, DELAY);
         } else {
