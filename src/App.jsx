@@ -24,7 +24,7 @@ function App() {
     const [playCorrectSFX] = useSound(correctSFX)
     const [playWrongSFX] = useSound(wrongSFX, { volume: 0.3 })
 
-    const {VITE_POKE_API} = import.meta.env
+    const { VITE_POKE_API } = import.meta.env
 
     useEffect(() => {
         startRound();
@@ -108,7 +108,7 @@ function App() {
     }
 
     return (
-        <div className="bg-yellow-200 max-w-xl mx-auto h-screen">
+        <div className="mx-auto h-screen max-w-xl bg-yellow-200">
             {isPlaying ? (
                 isLoading ? (
                     <Loading />

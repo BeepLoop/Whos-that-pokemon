@@ -2,7 +2,7 @@ import AnswerButton from "./AnswerButton";
 
 function Answers({ choices, reveal, pickAnswer, correct }) {
     return (
-        <div className="bg-slate-100 grid grid-rows-2 p-4 rounded-lg shadow-lg shadow-black/20">
+        <div className="grid grid-rows-2 rounded-lg bg-slate-100 p-4 shadow-lg shadow-black/20">
             {choices.map((choice) => {
                 return (
                     <AnswerButton
