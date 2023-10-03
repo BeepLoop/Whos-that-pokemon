@@ -68,7 +68,7 @@ function App() {
         async function fetchRandomPokemon() {
             const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1);
 
-            const res = await fetch(`${VITE_POKE_API}/${random}`);
+            const res = await fetch(`${VITE_POKE_API}${random}`);
             return await res.json();
         }
     }
