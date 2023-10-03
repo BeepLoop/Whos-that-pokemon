@@ -14,15 +14,15 @@ function Answers({ choices, reveal, pickAnswer, correct, clickable }) {
                         }
                         onClick={() => {
                             if (!clickable) return
-                            pickAnswer(choice.id);
+                            pickAnswer(choice.id)
                         }}
                     >
                         {choice.name}
                     </button>
-                );
+                )
             })}
         </div>
-    );
+    )
 }
 
-export default Answers;
+export default Answers

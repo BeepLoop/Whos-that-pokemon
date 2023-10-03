@@ -17,34 +17,39 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 
 ## Additional libraries used
 
-* ConfettiJS for confetti effects
+-   ConfettiJS for confetti effects
 
 ## To do
 
-* Improve code logic
-* Update UI
-* Add high score system
+-   Improve code logic
+-   Update UI
+-   Add high score system
 
 ## Recently accomplished
+
 [x] add sound effects
 [x] update UI to tailwindcss
 
 ## How to run
 
 ### Requirements
+
 requires NodeJS. You can install NodeJS from [here](https://nodejs.org/en/)
 
 clone the github repo
+
 ```
 git clone https://github.com/Mulitt/Whos-that-pokemon.git
 ```
 
 install dependencies
+
 ```
 npm install
 ```
 
 run the project
+
 ```
 npm run dev
 ```

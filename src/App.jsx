@@ -1,42 +1,42 @@
-import { useEffect, useState } from "react";
-import Pokemon from "./components/Pokemon";
-import Answers from "./components/Answers";
-import Home from "./components/Home";
-import Loading from "./components/Loading";
-import Gameover from "./components/Gameover";
-import useSound from "use-sound";
-import correctSFX from './assets/audio/correct.mp3'
-import wrongSFX from './assets/audio/wrong.mp3'
+import { useEffect, useState } from "react"
+import Pokemon from "./components/Pokemon"
+import Answers from "./components/Answers"
+import Home from "./components/Home"
+import Loading from "./components/Loading"
+import Gameover from "./components/Gameover"
+import useSound from "use-sound"
+import correctSFX from "./assets/audio/correct.mp3"
+import wrongSFX from "./assets/audio/wrong.mp3"
 
-const MAX_NUM_OF_POKEMONS = 897;
-const NUMBER_OF_ANSWERS = 4;
-const DELAY = 1000;
+const MAX_NUM_OF_POKEMONS = 897
+const NUMBER_OF_ANSWERS = 4
+const DELAY = 1000
 
 function App() {
-    const [pokemonToGuess, setPokemonToGuess] = useState([]);
-    const [correctPokemon, setCorrectPokemon] = useState({});
-    const [rounds, setRounds] = useState(0);
-    const [score, setScore] = useState(0);
-    const [reveal, setReveal] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [gameover, setGameover] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [canSelect, setCanSelct] = useState(true);
+    const [pokemonToGuess, setPokemonToGuess] = useState([])
+    const [correctPokemon, setCorrectPokemon] = useState({})
+    const [rounds, setRounds] = useState(0)
+    const [score, setScore] = useState(0)
+    const [reveal, setReveal] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [gameover, setGameover] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [canSelect, setCanSelct] = useState(true)
     const [playCorrectSFX] = useSound(correctSFX)
     const [playWrongSFX] = useSound(wrongSFX, { volume: 0.3 })
 
     const { VITE_POKE_API } = import.meta.env
 
     useEffect(() => {
-        startRound();
-    }, [rounds]);
+        startRound()
+    }, [rounds])
 
     async function startRound() {
-        setIsLoading(true);
-        setCanSelct(true);
-        setReveal(false);
-        await fetchPokemonToGuess();
-        setIsLoading(false);
+        setIsLoading(true)
+        setCanSelct(true)
+        setReveal(false)
+        await fetchPokemonToGuess()
+        setIsLoading(false)
     }
 
     async function fetchPokemonToGuess() {
@@ -45,44 +45,44 @@ function App() {
             fetchRandomPokemon(),
             fetchRandomPokemon(),
             fetchRandomPokemon(),
-        ]);
+        ])
 
-        const selectedPokemons = [];
+        const selectedPokemons = []
 
         randomPokemons.forEach((pokemon) => {
             selectedPokemons.push({
                 id: pokemon.id,
                 name: pokemon.species.name,
                 sprite: pokemon.sprites.front_default,
-            });
-        });
+            })
+        })
 
-        setPokemonToGuess([...selectedPokemons]);
-        pickRandomFromPokemonToGuess();
+        setPokemonToGuess([...selectedPokemons])
+        pickRandomFromPokemonToGuess()
 
         function pickRandomFromPokemonToGuess() {
-            const index = Math.floor(Math.random() * NUMBER_OF_ANSWERS);
-            setCorrectPokemon(selectedPokemons[index]);
+            const index = Math.floor(Math.random() * NUMBER_OF_ANSWERS)
+            setCorrectPokemon(selectedPokemons[index])
         }
 
         async function fetchRandomPokemon() {
-            const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1);
+            const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1)
 
-            const res = await fetch(`${VITE_POKE_API}${random}`);
-            return await res.json();
+            const res = await fetch(`${VITE_POKE_API}${random}`)
+            return await res.json()
         }
     }
 
     function play() {
-        setIsPlaying(true);
+        setIsPlaying(true)
     }
 
     async function evaluateAnswer(id) {
-        setCanSelct(false); // prevent clicking answer multiple times
-        setReveal(true);
+        setCanSelct(false) // prevent clicking answer multiple times
+        setReveal(true)
 
         if (correctPokemon.id === id) {
-            setScore((current) => (current = current + 1));
+            setScore((current) => (current = current + 1))
             playCorrectSFX()
             confetti({
                 particleCount: 50,
@@ -91,23 +91,23 @@ function App() {
                     y: 1,
                 },
                 scalar: 2,
-            });
+            })
             setTimeout(() => {
-                setRounds((current) => (current = current + 1));
-            }, DELAY);
+                setRounds((current) => (current = current + 1))
+            }, DELAY)
         } else {
             playWrongSFX()
             setTimeout(() => {
-                setGameover(true);
-            }, DELAY);
+                setGameover(true)
+            }, DELAY)
         }
     }
 
     function tryAgain() {
-        setScore(curr => curr *= 0);
-        setRounds(0);
-        setIsPlaying(false);
-        setGameover(false);
+        setScore((curr) => (curr *= 0))
+        setRounds(0)
+        setIsPlaying(false)
+        setGameover(false)
     }
 
     return (
@@ -116,14 +116,22 @@ function App() {
                 isLoading ? (
                     <Loading />
                 ) : gameover ? (
-                    <Gameover score={score} retry={tryAgain} />
+                    <Gameover
+                        score={score}
+                        retry={tryAgain}
+                    />
                 ) : (
                     <>
                         <div className="bg-red-400">
-                            <h3 className="text-center text-xl">Score: {score}</h3>
+                            <h3 className="text-center text-xl">
+                                Score: {score}
+                            </h3>
                         </div>
                         <div className="">
-                            <Pokemon pokemon={correctPokemon} reveal={reveal} />
+                            <Pokemon
+                                pokemon={correctPokemon}
+                                reveal={reveal}
+                            />
                         </div>
                         <Answers
                             choices={pokemonToGuess}
@@ -135,10 +143,13 @@ function App() {
                     </>
                 )
             ) : (
-                <Home sprite={correctPokemon.sprite} setIsPlaying={play} />
+                <Home
+                    sprite={correctPokemon.sprite}
+                    setIsPlaying={play}
+                />
             )}
         </div>
-    );
+    )
 }
 
-export default App;
+export default App

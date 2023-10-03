@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .choice-btn {
-    @apply px-3 py-2 rounded-md m-2 shadow-lg hover:contrast-75
+    @apply px-3 py-2 rounded-md m-2 shadow-lg hover:contrast-75;
 }
