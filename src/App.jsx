@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import Pokemon from "./components/Pokemon"
 import Answers from "./components/Answers"
 import Home from "./components/Home"
@@ -7,82 +6,38 @@ import Gameover from "./components/Gameover"
 import useSound from "use-sound"
 import correctSFX from "./assets/audio/correct.mp3"
 import wrongSFX from "./assets/audio/wrong.mp3"
+import usePokemonProvider from "./hooks/usePokemonProvider"
 
-const MAX_NUM_OF_POKEMONS = 897
-const NUMBER_OF_ANSWERS = 4
 const DELAY = 1000
 
 function App() {
-    const [pokemonToGuess, setPokemonToGuess] = useState([])
-    const [correctPokemon, setCorrectPokemon] = useState({})
-    const [rounds, setRounds] = useState(0)
-    const [score, setScore] = useState(0)
-    const [reveal, setReveal] = useState(false)
-    const [isPlaying, setIsPlaying] = useState(false)
-    const [gameover, setGameover] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [canSelect, setCanSelct] = useState(true)
+    const {
+        loading,
+        pokeList,
+        rightPoke,
+        score,
+        addScore,
+        nextRound,
+        revealMon,
+        revealAnswer,
+        canSelect,
+        setCanSelect,
+        isPlaying,
+        startGame,
+        playAgain,
+        gameover,
+        quitGame,
+    } = usePokemonProvider()
+
     const [playCorrectSFX] = useSound(correctSFX)
     const [playWrongSFX] = useSound(wrongSFX, { volume: 0.3 })
 
-    const { VITE_POKE_API } = import.meta.env
-
-    useEffect(() => {
-        startRound()
-    }, [rounds])
-
-    async function startRound() {
-        setIsLoading(true)
-        setCanSelct(true)
-        setReveal(false)
-        await fetchPokemonToGuess()
-        setIsLoading(false)
-    }
-
-    async function fetchPokemonToGuess() {
-        const randomPokemons = await Promise.all([
-            fetchRandomPokemon(),
-            fetchRandomPokemon(),
-            fetchRandomPokemon(),
-            fetchRandomPokemon(),
-        ])
-
-        const selectedPokemons = []
-
-        randomPokemons.forEach((pokemon) => {
-            selectedPokemons.push({
-                id: pokemon.id,
-                name: pokemon.species.name,
-                sprite: pokemon.sprites.front_default,
-            })
-        })
-
-        setPokemonToGuess([...selectedPokemons])
-        pickRandomFromPokemonToGuess()
-
-        function pickRandomFromPokemonToGuess() {
-            const index = Math.floor(Math.random() * NUMBER_OF_ANSWERS)
-            setCorrectPokemon(selectedPokemons[index])
-        }
-
-        async function fetchRandomPokemon() {
-            const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1)
-
-            const res = await fetch(`${VITE_POKE_API}${random}`)
-            return await res.json()
-        }
-    }
-
-    function play() {
-        setIsPlaying(true)
-    }
-
     async function evaluateAnswer(id) {
-        setCanSelct(false) // prevent clicking answer multiple times
-        setReveal(true)
+        setCanSelect(false) // prevent clicking answer multiple times
+        revealAnswer(true)
 
-        if (correctPokemon.id === id) {
-            setScore((current) => (current = current + 1))
+        if (rightPoke.id === id) {
+            addScore()
             playCorrectSFX()
             confetti({
                 particleCount: 50,
@@ -93,32 +48,25 @@ function App() {
                 scalar: 2,
             })
             setTimeout(() => {
-                setRounds((current) => (current = current + 1))
+                nextRound()
             }, DELAY)
         } else {
             playWrongSFX()
             setTimeout(() => {
-                setGameover(true)
+                quitGame()
             }, DELAY)
         }
-    }
-
-    function tryAgain() {
-        setScore((curr) => (curr *= 0))
-        setRounds(0)
-        setIsPlaying(false)
-        setGameover(false)
     }
 
     return (
         <div className="mx-auto h-screen max-w-xl bg-yellow-200">
             {isPlaying ? (
-                isLoading ? (
+                loading ? (
                     <Loading />
                 ) : gameover ? (
                     <Gameover
                         score={score}
-                        retry={tryAgain}
+                        retry={playAgain}
                     />
                 ) : (
                     <>
@@ -129,24 +77,21 @@ function App() {
                         </div>
                         <div className="">
                             <Pokemon
-                                pokemon={correctPokemon}
-                                reveal={reveal}
+                                pokemon={rightPoke}
+                                reveal={revealMon}
                             />
                         </div>
                         <Answers
-                            choices={pokemonToGuess}
-                            reveal={reveal}
+                            choices={pokeList}
+                            reveal={revealMon}
                             pickAnswer={evaluateAnswer}
-                            correct={correctPokemon}
+                            correct={rightPoke}
                             clickable={canSelect}
                         />
                     </>
                 )
             ) : (
-                <Home
-                    sprite={correctPokemon.sprite}
-                    setIsPlaying={play}
-                />
+                <Home setIsPlaying={startGame} />
             )}
         </div>
     )
