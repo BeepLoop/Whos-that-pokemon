@@ -21,6 +21,7 @@ function App() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [gameover, setGameover] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [canSelect, setCanSelct] = useState(true);
     const [playCorrectSFX] = useSound(correctSFX)
     const [playWrongSFX] = useSound(wrongSFX, { volume: 0.3 })
 
@@ -32,6 +33,7 @@ function App() {
 
     async function startRound() {
         setIsLoading(true);
+        setCanSelct(true);
         setReveal(false);
         await fetchPokemonToGuess();
         setIsLoading(false);
@@ -66,7 +68,7 @@ function App() {
         async function fetchRandomPokemon() {
             const random = Math.floor(Math.random() * MAX_NUM_OF_POKEMONS + 1);
 
-            const res = await fetch(`${VITE_POKE_API}${random}`);
+            const res = await fetch(`${VITE_POKE_API}/${random}`);
             return await res.json();
         }
     }
@@ -76,6 +78,7 @@ function App() {
     }
 
     async function evaluateAnswer(id) {
+        setCanSelct(false); // prevent clicking answer multiple times
         setReveal(true);
 
         if (correctPokemon.id === id) {
@@ -127,6 +130,7 @@ function App() {
                             reveal={reveal}
                             pickAnswer={evaluateAnswer}
                             correct={correctPokemon}
+                            clickable={canSelect}
                         />
                     </>
                 )
