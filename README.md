@@ -24,11 +24,17 @@ For live demo of the app, you can visit the deployed version [here](https://poke
 -   Improve code logic
 -   Update UI
 -   Add high score system
+-   Share score to Facebook
+-   Login System for tracking personal records
+-   Leaderboards
+-   Site analytics
 
 ## Recently accomplished
 
 [x] add sound effects
 [x] update UI to tailwindcss
+[x] fix bug where player can click button multiple times
+[x] move game logic to dedicaed context file
 
 ## How to run
 
