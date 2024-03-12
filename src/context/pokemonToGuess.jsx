@@ -83,7 +83,7 @@ export default function PokemonProvider({ children }) {
     }
 
     function nextRound() {
-        setRound(curr => curr + 1)
+        setRound((curr) => curr + 1)
     }
 
     return (

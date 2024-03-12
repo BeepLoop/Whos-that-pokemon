@@ -13,18 +13,13 @@ const DELAY = 1000
 function App() {
     const {
         loading,
-        pokeList,
         rightPoke,
         score,
         addScore,
         nextRound,
-        revealMon,
         revealAnswer,
-        canSelect,
         setCanSelect,
         isPlaying,
-        startGame,
-        playAgain,
         gameover,
         quitGame,
     } = usePokemonProvider()
@@ -64,10 +59,7 @@ function App() {
                 loading ? (
                     <Loading />
                 ) : gameover ? (
-                    <Gameover
-                        score={score}
-                        retry={playAgain}
-                    />
+                    <Gameover />
                 ) : (
                     <>
                         <div className="bg-red-400">
@@ -76,22 +68,13 @@ function App() {
                             </h3>
                         </div>
                         <div className="">
-                            <Pokemon
-                                pokemon={rightPoke}
-                                reveal={revealMon}
-                            />
+                            <Pokemon pokemon={rightPoke} />
                         </div>
-                        <Answers
-                            choices={pokeList}
-                            reveal={revealMon}
-                            pickAnswer={evaluateAnswer}
-                            correct={rightPoke}
-                            clickable={canSelect}
-                        />
+                        <Answers handleAnswer={evaluateAnswer} />
                     </>
                 )
             ) : (
-                <Home setIsPlaying={startGame} />
+                <Home />
             )}
         </div>
     )
